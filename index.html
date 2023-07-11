@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Protección de Recurso Web</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Protección de Recurso Web</h1>
+  <button id="generateApiKeyBtn">Generar API Key</button>
+  <button id="accessResourceBtn" disabled>Acceder al Recurso</button>
+
+  <script>
+    $('#generateApiKeyBtn').click(() => {
+      $.get('/generateApiKey', (apiKey) => {
+        alert('API Key generada: ' + apiKey);
+        $('#accessResourceBtn').prop('disabled', false);
+      });
+    });
+
+    $('#accessResourceBtn').click(() => {
+      const apiKey = prompt('Ingrese la API Key generada:');
+      if (apiKey) {
+        window.location.href = '/protectedResource?apiKey=' + apiKey;
+      }
+    });
+  </script>
+</body>
+</html>
